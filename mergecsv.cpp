@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
-//#include <cstring>
 
 void rowmerge(int num_files, std::vector<std::string> infilename, std::string outfilename){
 	std::vector< std::vector<std::string> > data(num_files);
@@ -34,13 +33,10 @@ void rowmerge(int num_files, std::vector<std::string> infilename, std::string ou
 		input.close();
 	}
 
-	//std::cout << lastline[1];
-	num_rows = *std::max_element(rows_count.begin(),rows_count.end());
-	//std::cout << num_rows <<"\n"; 
+	num_rows = *std::max_element(rows_count.begin(),rows_count.end()); 
 	for (int j = 0; j< rows_count.size(); j++) {
 		for(int add_lines = 0; add_lines < num_rows-rows_count[j]; add_lines++ ) {
 			data[j].push_back(lastline[j]);
-			//std::cout<<j<< num_rows << rows_count[j] << lastline[j] <<"\n";
 		}
 	}
 
@@ -80,10 +76,8 @@ void colmerge(int num_files, std::vector<std::string> infilename, std::string ou
 	std::ofstream output(outfilename.c_str(), std::ofstream::out | std::ofstream::app);
 	for(int filenum = 0; filenum < num_files; filenum++) {
 		for(int row = 0; row < data[filenum].size(); row++) {
-			//output <<filenum << " , " << row<<"\n";
 			output << data[filenum][row]<<"\n";
 		}
-		//output << "\n";
 	}
 
 	output.close();
@@ -97,32 +91,6 @@ int main(int argc, char** argv){
 		std::string str(argv[i]);
 		inputfile.push_back(str);
 	}
-
 	rowmerge(num_files,inputfile,outputfile);
-	// //int num_files = 2;
-	// std::string filename[2];
-	// //std::cin>>filename[0];
-	// //std::cin>>filename[1];
-
-	// int num_files = argc;
-	// std::string 
-	// std::vector< std::vector<std::string> > data(num_files);
-	// for( int i = 1; i < num_files; i++ ) {
- //    	//std::ifstream input(filename[i].c_str());
- //    	std::cout<< argv[i] << std::endl;
- //    	filename[i-1] = argv[i];
- //    	std::ifstream input( argv[i] );
- //    	std::string line;
- //    	while( getline(input, line) ) data[i].push_back(line);
-	// }
-
-	// std::ofstream output("concatenated.csv", std::ofstream::out | std::ofstream::app);
-	// int num_rows = data[0].size();
-	// for( int row = 0; row < num_rows; row++ ) {
-	//     for( int f = 0; f < num_files; f++ ) {
-	//         if( f != 0 ) output << ",";
-	//         output << data[f][row];
-	//     }
-	//     output << "\n";
-	// }
+	//TO-DO User Interface
 }
