@@ -4,11 +4,20 @@
 #include <vector>
 #include <algorithm>
 
+// int count_comma(std::string s) {
+//   int count = 0;
+
+//   for (int i = 0; i < s.size(); i++)
+//     if (s[i] == ',') count++;
+
+//   return count;
+// }
+
 void rowmerge(int num_files, std::vector<std::string> infilename, std::string outfilename){
 	std::vector< std::vector<std::string> > data(num_files);
 	std::vector<std::string> lastline(num_files);
 	std::vector<int> rows_count(num_files);
-	std::vector<size_t> num_values(num_files);
+	//std::vector<int> num_values(num_files);
 	int num_rows=0, curr_rows, max_row_filenum;
 	//TO_DO max_row_filenum usage
 	for(int i = 0; i< infilename.size(); i++){
@@ -20,7 +29,7 @@ void rowmerge(int num_files, std::vector<std::string> infilename, std::string ou
 			curr_rows++;
 			lastline[i] = line;
 		}
-		num_values[i] = std::count(lastline[i].begin(), lastline[i].end(), ',');
+		//num_values[i] = count_comma(lastline[i]);
 		rows_count[i] = curr_rows;
 
 	 // 	if(num_rows == 0) {
@@ -92,7 +101,7 @@ int main(int argc, char** argv){
 	std::vector<std::string> inputfile;
 	int num_files = 0;
 	std::string outputfile;
-	
+
 	if (argc > 1){
 		outputfile = argv[argc-1];
 		num_files = argc-2;
@@ -108,7 +117,7 @@ int main(int argc, char** argv){
 		std::cout << "Enter the name of input CSV (Ex:- input.csv):\n";
 		std::cin >> inputstr;
 		inputfile.push_back(inputstr);
-		while(inputstr != "Quit" || inputstr != "quit"){
+		while(inputstr != "Quit" && inputstr != "quit"){
 			num_files++;
 			std::cout << "Enter name of next input CSV (Ex:- newinput.csv) or enter quit:\n";
 			std::cin >> inputstr;
