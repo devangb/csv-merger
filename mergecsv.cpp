@@ -8,7 +8,7 @@ void rowmerge(int num_files, std::vector<std::string> infilename, std::string ou
 	std::vector< std::vector<std::string> > data(num_files);
 	std::vector<std::string> lastline(num_files);
 	std::vector<int> rows_count(num_files);
-	std::std::vector<size_t> num_values(num_files);
+	std::vector<size_t> num_values(num_files);
 	int num_rows=0, curr_rows, max_row_filenum;
 	//TO_DO max_row_filenum usage
 	for(int i = 0; i< infilename.size(); i++){
@@ -90,16 +90,18 @@ void colmerge(int num_files, std::vector<std::string> infilename, std::string ou
 
 int main(int argc, char** argv){
 	std::vector<std::string> inputfile;
+	int num_files = 0;
+	std::string outputfile;
+	
 	if (argc > 1){
-		std::string outputfile(argv[argc-1]);
-		int num_files argc-2;
+		outputfile = argv[argc-1];
+		num_files = argc-2;
 		for(int i = 1; i<= num_files; i++) {
 			std::string str(argv[i]);
 			inputfile.push_back(str);
 		}
 	}
 	else{
-		std::string outputfile;
 		std::string inputstr;
 		std::cout << "Enter the name of output CSV (Ex:- merged.csv):\n";
 		std::cin >> outputfile;
@@ -107,12 +109,20 @@ int main(int argc, char** argv){
 		std::cin >> inputstr;
 		inputfile.push_back(inputstr);
 		while(inputstr != "Quit" || inputstr != "quit"){
+			num_files++;
 			std::cout << "Enter name of next input CSV (Ex:- newinput.csv) or enter quit:\n";
 			std::cin >> inputstr;
 			inputfile.push_back(inputstr);
 		}
 	}
-	
-	rowmerge(num_files,inputfile,outputfile);
+
+	int option;
+	std::cout << "Merge type: \n 1)Column wise\n 2)Row wise\n";
+	std::cin >> option;
+	if(option == 1)
+		colmerge(num_files,inputfile,outputfile);
+	else if(option == 2)
+		rowmerge(num_files,inputfile,outputfile);
 	//TO-DO User Interface
+	return 0;
 }
