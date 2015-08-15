@@ -24,11 +24,16 @@ void rowmerge(int num_files, std::vector<std::string> infilename, std::string ou
 		rows_count[i] = curr_rows;
 
 	 // 	if(num_rows == 0) {
-		//  	num_rows = curr_rows;
+		//   	num_rows = curr_rows;
 		// }
 		// else if(num_rows != curr_rows) {
-		//  	//TO-DO if no. of rows in some csv is less than the others
-		//  	//error or repeating values or empty commas
+		// //TO-DO if no. of rows in some csv is less than the others
+		// //error or repeating values or empty commas
+		// 	std::cout << "Number of rows in all files are not same. Enter: \n 
+		// 		1)Repeat last values in all empty rows of that file \n
+		// 		2)Leave the rows empty \n
+		// 		Waiting for your input...\n";
+		// 	std::cin >> repeat;
 		// }
 		input.close();
 	}
@@ -85,12 +90,29 @@ void colmerge(int num_files, std::vector<std::string> infilename, std::string ou
 
 int main(int argc, char** argv){
 	std::vector<std::string> inputfile;
-	std::string outputfile(argv[argc-1]);
-	int num_files = argc-2;
-	for(int i = 1; i<= num_files; i++) {
-		std::string str(argv[i]);
-		inputfile.push_back(str);
+	if (argc > 1){
+		std::string outputfile(argv[argc-1]);
+		int num_files argc-2;
+		for(int i = 1; i<= num_files; i++) {
+			std::string str(argv[i]);
+			inputfile.push_back(str);
+		}
 	}
+	else{
+		std::string outputfile;
+		std::string inputstr;
+		std::cout << "Enter the name of output CSV (Ex:- merged.csv):\n";
+		std::cin >> outputfile;
+		std::cout << "Enter the name of input CSV (Ex:- input.csv):\n";
+		std::cin >> inputstr;
+		inputfile.push_back(inputstr);
+		while(inputstr != "Quit" || inputstr != "quit"){
+			std::cout << "Enter name of next input CSV (Ex:- newinput.csv) or enter quit:\n";
+			std::cin >> inputstr;
+			inputfile.push_back(inputstr);
+		}
+	}
+	
 	rowmerge(num_files,inputfile,outputfile);
 	//TO-DO User Interface
 }
