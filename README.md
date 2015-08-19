@@ -24,28 +24,36 @@ and follow the interface on the terminal
 ####Merge types
 ######Row wise
 Table 1:
-Header1 | Header2
-Value1  | Value2
+| Header1 | Header2 |
+ --------- ---------
+| Value1  | Value2  |
 
 Table 2:
-Header3 | Header4
-Value3  | Value4
+| Header3 | Header4 |
+ --------- ---------
+| Value3  | Value4  |
 
 Merged Table:
-Header1 | Header2 | Header3 | Header4
-Value1  | Value2  | Value3  | Value4
+| Header1 | Header2 | Header3 | Header4 |
+ --------- --------- --------- ---------
+| Value1  | Value2  | Value3  | Value4  |
 
 ######Column wise
 Table 1:
-Header1 | Header2
-Value1  | Value2
+| Header1 | Header2 |
+ --------- ---------
+| Value1  | Value2  |
 
 Table 2:
-Header3 | Header4
-Value3  | Value4
+| Header3 | Header4 |
+ --------- ---------
+| Value3  | Value4  |
 
 Merged Table:
-Header1 | Header2
-Value1  | Value2
-Header3 | Header4
-Value3  | Value4
+| Header1 | Header2 |
+ --------- ---------
+| Value1  | Value2  |
+ --------- ---------
+| Header3 | Header4 |
+ --------- ---------
+| Value3  | Value4  |
