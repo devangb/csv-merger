@@ -3,21 +3,24 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 
-// int count_comma(std::string s) {
-//   int count = 0;
+int count_comma(std::string s) {
+  int count = 0;
 
-//   for (int i = 0; i < s.size(); i++)
-//     if (s[i] == ',') count++;
+  for (int i = 0; i < s.size(); i++)
+    if (s[i] == ',') count++;
 
-//   return count;
-// }
+  return count;
+}
 
 void rowmerge(int num_files, std::vector<std::string> infilename, std::string outfilename){
 	std::vector< std::vector<std::string> > data(num_files);
 	std::vector<std::string> lastline(num_files);
+	std::vector<std::string> emptyline(num_files);
 	std::vector<int> rows_count(num_files);
-	//std::vector<int> num_values(num_files);
+	std::vector<int> num_values;
+	int repeat;
 	int num_rows=0, curr_rows, max_row_filenum;
 	//TO_DO max_row_filenum usage
 	for(int i = 0; i< infilename.size(); i++){
@@ -29,8 +32,15 @@ void rowmerge(int num_files, std::vector<std::string> infilename, std::string ou
 			curr_rows++;
 			lastline[i] = line;
 		}
-		//num_values[i] = count_comma(lastline[i]);
+		num_values.push_back(count_comma(lastline[i]));
 		rows_count[i] = curr_rows;
+
+		std::vector<char> commastring;
+		for (int comma = 0; comma < num_values[i]; comma++){
+			commastring.push_back(',');
+		}
+		std::string str(commastring.begin(),commastring.end());
+		emptyline[i] = str;
 
 	 // 	if(num_rows == 0) {
 		//   	num_rows = curr_rows;
@@ -47,10 +57,17 @@ void rowmerge(int num_files, std::vector<std::string> infilename, std::string ou
 		input.close();
 	}
 
+	std::cout << "What would you like to do to equalize the number of rows in all CSVs:\n";
+	std::cout << " 1) Repeat last values \n 2) Keep them empty\n";
+	std::cin >> repeat;
+
 	num_rows = *std::max_element(rows_count.begin(),rows_count.end()); 
 	for (int j = 0; j< rows_count.size(); j++) {
 		for(int add_lines = 0; add_lines < num_rows-rows_count[j]; add_lines++ ) {
-			data[j].push_back(lastline[j]);
+			if(repeat == 1)
+				data[j].push_back(lastline[j]);
+			else
+				data[j].push_back(emptyline[j]);
 		}
 	}
 

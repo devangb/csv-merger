@@ -9,7 +9,7 @@ g++ -o mergecsv mergecsv.cpp
 
 ####Run
 ```
-./mergecsv input.csv input1.csv input2.csv .... output.csv
+./mergecsv input.csv input1.csv input2.csv .... inputX.csv output.csv
 ```
 or
 ```
